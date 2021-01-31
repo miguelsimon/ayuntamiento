@@ -1,0 +1,5 @@
+env
+env_ok
+test_dir
+.mypy_cache
+__pycache__
