@@ -30,7 +30,7 @@ def get_frequencies(texts: Iterable[str]) -> Dict[str, int]:
 
 
 def make_cloud(frequencies: Dict[str, int]) -> WordCloud:
-    wordcloud = WordCloud().generate_from_frequencies(frequencies)
+    wordcloud = WordCloud(width=800, height=600).generate_from_frequencies(frequencies)
 
     return wordcloud
 

@@ -135,7 +135,7 @@ env/bin/python -m ayuntamiento.tweets_to_wordcloud \
   --out_file wordcloud.png
 ```
 
-![wordcloud](media/wordcloud.png)
+![wordcloud](media/wordcloud-big.png)
 
 ##### Formato tabular
 
