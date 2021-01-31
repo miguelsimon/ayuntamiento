@@ -25,8 +25,8 @@ Y generando este tag cloud a partir de los contenidos:
 * [Prototipo de ejemplo](#Prototipo-de-ejemplo)
   * [Quickstart](#Quickstart)
   * [Crawler de twitter](#Crawler-de-twitter)
-  * [Postprocesado](#Postprocesado)
-  * [Resultados](#Resultados)
+  * [Postprocesado de dump](#Postprocesado-de-dump)
+  * [Resultados de ejemplo](#Resultados-de-ejemplo)
     * [Word cloud](#Word-cloud)
     * [Formato tabular](#Formato-tabular)
 * [Desarrollo](#Desarrollo)
@@ -109,7 +109,7 @@ TRACK_QUERY='{"track":"vlc,valencia,valenciano,valenciana", "language":"ca,es"}'
 env/bin/python -m ayuntamiento.tweets_to_directory
 ```
 
-#### Postprocesado
+#### Postprocesado de dump
 
 La utilidad `extract_tweets` lee un directorio de dump generado por la utilidad `tweets_to_directory`, filtra mensajes irrelevantes y aplica borrado de tweets como exigen los términos de servicio de la api de twitter, y genera un fichero donde cada línea es un tweet en formato JSON:
 
@@ -119,7 +119,7 @@ env/bin/python -m ayuntamiento.extract_tweets \
   --out_file tweets.json_lines
 ```
 
-#### Resultados
+#### Resultados de ejemplo
 
 Creo que los resultados que queréis es lo que menos claro tenéis: es mejor ponerse a experimentar con los datos cuanto antes para hacerse una idea de qué cosas se pueden hacer con ellos.
 
