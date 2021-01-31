@@ -7,20 +7,29 @@ Puntos importantes:
 * hay que huir de "expertos" en márketing que abundan en este sector
 * hay que evitar que las tecnologías de moda definan el proyecto: hay que definir el problema primero antes de decir eg. que vamos a usar deep learning para solucionarlo
 
-Voy a implementar un pipeline sencillo que recoge y procesa datos de redes sociales; los prototipos son la mejor manera de forzar a concretar ideas.
+Voy a implementar un pipeline sencillo que recoge y procesa datos de redes sociales; los prototipos son la mejor manera de forzar a concretar ideas. He lanzado la escucha hoy domingo, recogiendo 18380 tweets:
+
+```
+wc -l tweets.json_lines
+   18380 tweets.json_lines
+```
+
+Y generando este tag cloud a partir de los contenidos:
+
+![wordcloud](media/wordcloud.png)
 
 * [Arquitectura](#Arquitectura)
   * [Recogida de datos](#Recogida-de-datos)
   * [Postprocesado](#Postprocesado)
   * [Resultados](#Resultados)
 * [Prototipo de ejemplo](#Prototipo-de-ejemplo)
+  * [Quickstart](#Quickstart)
   * [Crawler de twitter](#Crawler-de-twitter)
   * [Postprocesado](#Postprocesado)
   * [Resultados](#Resultados)
     * [Word cloud](#Word-cloud)
     * [Formato tabular](#Formato-tabular)
-
-
+* [Desarrollo](#Desarrollo)
 
 ### Arquitectura
 
@@ -69,15 +78,26 @@ Es un prototipo sencillo pero toca las tres partes del sistema:
   * dan un ejemplo de generar un word cloud a partir de los datos descargados
   * dan un ejemplo de generar un csv fácil de tratar para analistas
 
+#### Quickstart
+
+Esto debería funcionar en Linux o en OS X con python 3.6 o superior. Windows es otra historia.
+
+1. Crear un virtualenv llamado env: `python3 -m venv env`
+2. Instalar dependencias en el virtualenv: `env/bin/pip install -r requirements.txt`
+3. Tener [credenciales de acceso a una app de twitter para poder acceder a la api](https://developer.twitter.com/en/docs/apps/overview), es gratis pero hay que pedirle a twitter que os habilite un developer account.
+
 #### Crawler de twitter
 
 La utilidad `tweets_to_directory` coge parámetros de variables de entorno que configuran credenciales de acceso a twitter, directorio destino y query de tweets relevantes, y los vuelca a un directorio.
 
-Para usarlo os harán falta las credenciales de una [app de twitter](https://developer.twitter.com/en/docs/apps/overview); yo estoy usando una app que tenía dada de alta antes, es gratis pero hay que pedirle a twitter que os habilite un developer account.
+Variables de entorno necesarias:
 
-Con estas credenciales, esta utilidad
-* recoge tweets en tiempo real devueltos por la query [TRACK_QUERY](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/filter-realtime/overview), en el ejemplo menciones sobre valencia con códigos de idioma español o catalán
-* vuelca el stream de tweets (y otras cosas) en un directorio, en el ejemplo `test_dir`: vuelca los streams de mensajes en ficheros bajo este directorio
+* `TARGET_DIRECTORY`: ruta al directorio destino del dump
+* `CONSUMER_KEY`: credencial de api de twitter
+* `CONSUMER_SECRET`: credencial de api de twitter
+* `ACCESS_TOKEN_KEY`: credencial de api de twitter
+* `ACCESS_TOKEN_SECRET`: credencial de api de twitter
+* `TRACK_QUERY`: especificación de la búsqueda, ver [documentación de twitter](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/filter-realtime/overview) para cómo se puede acotar la búsqueda
 
 ```bash
 TARGET_DIRECTORY="test_dir" \
@@ -126,3 +146,9 @@ env/bin/python -m ayuntamiento.tweets_to_csv \
   --in_file tweets.json_lines \
   --out_file tweets.csv
 ```
+
+### Desarrollo
+
+* `make fmt` autoformatea el código
+* `make check` ejecuta el typechecker y linters
+* `make test` ejecuta tests unitarios
